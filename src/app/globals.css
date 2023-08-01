@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: made-tommy;
+  src: url(/made_tommy/MADE\ TOMMY\ Regular_PERSONAL\ USE.otf);
+}
+@font-face {
+  font-family: dreams;
+  src: url(/DREAMS.TTF);
+}
+
+body{
+  background-color: #000000;
+  color: #ffffff;
+  font-family:made-tommy;
+}
+h1{
+  font-family: dreams;
+}
+p{
+  font-family: made-tommy;
+}
+.main-back{
+  background-image: url(/images/back.png);
+  background-size: 100% 100%;
+  height: 100vh;
+
+}
+
+.left-up-bg{
+  background-image: url(/public/images/up-left-bg.png);
+  background-size: 100% 100%;
+}
+.bottom-right-bg{
+  background-image: url(/public/images/bottom-right-bg.png);
+  background-size: 100% 100%;
+}
+.frame-bg{
+  background-image: url(/images/main-bg.png);
+  background-size: 100% 100%;
+  max-height: 1200px;
+  max-width: 1300px;
+}
+.frame{
+  border-radius: 35px;
+border: 0.5px solid #696767;
+background: radial-gradient(63.11% 145.80% at 48.51% 8.41%, rgba(255, 255, 255, 0.17) 0%, rgba(158, 158, 158, 0.00) 100%);
+backdrop-filter: blur(75px);
+font-family: made-tommy;
+
+
+}
+.input-bg{
+border-radius: 47px;
+border: 0.5px solid rgba(255, 255, 255, 0.30);
+background: rgba(0, 0, 0, 0.27);
+backdrop-filter: blur(12px);
+height: 50px;
+padding-inline:10px ;
+margin: 10px 0px;
+}
+input{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-family: made-tommy ;
+}
+.select-bg{
+border-radius: 21.5px;
+border: 0.3px solid rgba(255, 255, 255, 0.40);
+background: radial-gradient(149.30% 141.47% at 52.26% -0.00%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.00) 100%);
+backdrop-filter: blur(12px);
+}
+.fill-line{
+ width: 70%;
+  height: 15%;
+  background-image: linear-gradient(to right, #5e50ff, #ff00f5, #fee301);
+  border-radius: 10px;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 40%);
+  z-index: -1;
+
+}
+select option{
+  color: #000000;
+  border: 1px solid black;
+}
+.submit-btn{
+  border-radius: 21.5px;
+border: 0.3px solid rgba(255, 255, 255, 0.40);
+background: radial-gradient(105.53% 100.00% at 52.26% -0.00%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.00) 100%);
+backdrop-filter: blur(12px);
+padding-block: 10px;
+}
+.submit-btn:hover{
+  background-color: rgba(146, 138, 138, 0.4);
+}
