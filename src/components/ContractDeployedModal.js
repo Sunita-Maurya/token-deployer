@@ -12,7 +12,7 @@ const ContractDeployedModal = ({setSctivePopup}) => {
     
     const address='0x34252643576246';
   return (
-    <div className='absolute inset-0 flex justify-center items-center'>
+    <div className='absolute inset-0 backdrop-blur-md flex justify-center items-center'>
         <div className='frame p-10 text-center'>
       <h2 className='text-2xl mb-5'>Contract Deployed at</h2>
         <div className='relative flex items-center justify-center gap-2'><img src="/images/copy.png" alt="copy" className='transition-all cursor-pointer active:scale-95 hover:scale-105' onClick={handleCopy}  /><Link  href=""> {address}</Link>

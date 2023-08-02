@@ -32,11 +32,9 @@ export default function Home() {
 
 
   return (
-   <main className=''>
-        {/* <img src="/images/up-left-bg.png" alt="bg"  className='absolute top-0'/> */}
-
-      <div className='relative main-back flex flex-col  justify-center items-center'>
-      <div className="flex justify-end md:w-[60%] w-full mr-5  translate-y-10">
+   <main className='2xl:container 2xl:mx-auto  lg:mx-20 px-5 '>
+      <div className=' main-back flex flex-col justify-center items-center h-[100vh]  '>
+      <div className="flex justify-end md:w-[60%] w-full  translate-y-8">
         <div className="relative mb-2 ">
       <select value={selectedCompoent} onChange={handleComponentChange} className="select-bg text-center px-5 h-12 w-44 outline-none">
         <option value="BigEyes" className="font-['made-tommy']">Big Eyes</option>
@@ -45,17 +43,18 @@ export default function Home() {
         <option value="Jeju">Jeju</option>
         <option value="PepeToken">Pepe token</option>
       </select>
-      <div className="h-4 w-[300px] absolute bottom-0 fill-line  "></div>
+      <div className="h-4 w-[300px] absolute bottom-0 fill-line"></div>
       </div>
       </div>
-      <div className="frame-bg  2xl:w-[70%] xl:w-[70%] w-[95%] ">
-     <h1 className=" 2xl:text-[8px] lg:text-[6px] text-[4px] 2xl:mt-10 xl:mt-5 mt-10 md:ml-20 ml-5">
+      <div className="frame-bg  xl:w-[1050px] lg:w-[800px] md:w-[90%] w-[95%]">
+     <h1 className=" 2xl:text-[6px] lg:text-[6px] text-[4px] 2xl:mt-10 xl:mt-5 mt-10 md:ml-14 ml-5">
       {selectedCompoent}
      </h1>
+     <div className='lg:py-20 lg:px-14 md:px-5 px-3 py-8'>
      {RanderComponent(selectedCompoent)}
+     </div>
       </div>
     </div>
-    {/* <img src="/images/bottom-right-bg.png" alt="bg"  className='absolute bottom-0 right-0 '/> */}
 
    </main>
   )
