@@ -32,8 +32,7 @@ p{
 .frame-bg{
   background-image: url(/images/Union.png);
   background-size: 100% 100%;
-  max-height: 1200px;
-  max-width: 1300px;
+
 }
 .frame{
 border-radius: 35px;
@@ -41,9 +40,13 @@ border: 0.5px solid #696767;
 background: radial-gradient(63.11% 145.80% at 48.51% 8.41%, rgba(255, 255, 255, 0.17) 0%, rgba(158, 158, 158, 0.00) 100%);
 backdrop-filter: blur(75px);
 font-family: made-tommy;
-
-
 }
+.frame1{
+  border-radius: 35px;
+  border: 0.5px solid #FFF;
+  background: radial-gradient(63.11% 145.80% at 48.51% 8.41%, rgba(255, 255, 255, 0.17) 0%, rgba(158, 158, 158, 0.00) 100%);
+  backdrop-filter: blur(75px);
+  }
 .input-bg{
 border-radius: 47px;
 border: 0.5px solid rgba(255, 255, 255, 0.30);
@@ -77,6 +80,7 @@ backdrop-filter: blur(12px);
   z-index: -1;
 
 }
+
 select option{
   color: #000000;
   border: 1px solid black;
@@ -90,4 +94,13 @@ padding-block: 10px;
 }
 .submit-btn:hover{
   background-color: rgba(146, 138, 138, 0.4);
+}
+
+
+@media screen and (max-width:767px) {
+  .frame-bg{
+    background-image: url(/images/mob.png);
+    background-size: 100% 100%;
+  
+  }  
 }

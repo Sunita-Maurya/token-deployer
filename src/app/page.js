@@ -34,13 +34,13 @@ export default function Home() {
   return (
    <main className='2xl:container 2xl:mx-auto  lg:mx-20 px-5 '>
       <div className=' main-back flex flex-col justify-center items-center h-[100vh]  '>
-      <div className="flex justify-end md:w-[60%] w-full  translate-y-8">
+      <div className="flex justify-end md:w-[60%] w-full  md:translate-y-8 translate-y-10">
         <div className="relative mb-2 ">
-      <select value={selectedCompoent} onChange={handleComponentChange} className="select-bg text-center px-5 h-12 w-44 outline-none">
+      <select value={selectedCompoent} onChange={handleComponentChange} className="select-bg text-center px-5 h-12 md:w-44 w-36 outline-none">
         <option value="BigEyes" className="font-['made-tommy']">Big Eyes</option>
         <option value="NeoCypherPunk">Neo Cypher punk</option>
         <option value="DejitaruTsuka">Dejitaru tsuka</option>
-        <option value="Jeju">Jeju</option>
+        <option value="JEJU">Jeju</option>
         <option value="PepeToken">Pepe token</option>
       </select>
       <div className="h-4 w-[300px] absolute bottom-0 fill-line"></div>
