@@ -40,7 +40,7 @@ export default function Home() {
         <option value="BigEyes" className="font-['made-tommy']">Big Eyes</option>
         <option value="NeoCypherPunk">Neo Cypher punk</option>
         <option value="DejitaruTsuka">Dejitaru tsuka</option>
-        <option value="JEJU">Jeju</option>
+        <option value="Jeju">Jeju</option>
         <option value="PepeToken">Pepe token</option>
       </select>
       <div className="h-4 w-[300px] absolute bottom-0 fill-line"></div>

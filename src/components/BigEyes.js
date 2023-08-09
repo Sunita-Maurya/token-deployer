@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { BigNumber } from 'bignumber.js';
 
 const BigEyes = () => {
-  const [activePopup,setSctivePopup]=useState(false)
+  const [activePopup,setActivePopup]=useState(false)
   const [contractName, setContractName] = useState("");
   const [templateName, setTemplateName] = useState("BigEyes");
   const [name, setName] = useState("");
@@ -62,7 +62,7 @@ const BigEyes = () => {
         console.log('res',res)
         if(res.status===200){
           toast("Form Submitted Succesfull",res.data);
-           setSctivePopup(true)
+           setActivePopup(true)
            setLoading(false)
            console.log("success",res.data.address);
            if(res.data.address){
@@ -145,7 +145,7 @@ const BigEyes = () => {
     </div>
     </form>
     <ToastContainer/>
-    {activePopup && <ContractDeployedModal address={address} LinkUrl={LinkUrl} setSctivePopup={setSctivePopup}/>}
+    {activePopup && <ContractDeployedModal address={address} LinkUrl={LinkUrl} setActivePopup={setActivePopup}/>}
   </>
 )
 }
