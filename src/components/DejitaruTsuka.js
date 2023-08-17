@@ -20,9 +20,14 @@ const DejitaruTsuka = () => {
   const [addTotalSupplyWei,setAddTotalSupplyWei]= useState();
   const [selectedValue, setSelectedValue] = useState('');
   const [loading, setLoading] = useState(false);
-  const [color, setColor] = useState("green");
   const [LinkUrl,setLinkUrl]=useState("");
   const [address,setAddress]= useState();
+  const [verify,setVerify]=useState(false);
+  const [deploymentAddress,setDeploymentAddress]=useState('');
+  const[marketingAddress,setMarketingAddress]=useState('');
+const [maxTxAmount,setMaxTxAmount]=useState('');
+const[mxWalletSize,setMxWalletSize]=useState('');
+const[swapTokenAtAmount,setSwapTokenAtAmount]=useState('');
 
     const handleChangeChainId = (event) => {
     setSelectedValue(event.target.value);
@@ -87,6 +92,12 @@ const DejitaruTsuka = () => {
         symbol:symbol,
         decimals:decimals,
         totalSupply:addTotalSupplyWei,
+        deploymentAddress:deploymentAddress,
+        marketingAddress:marketingAddress,
+        maxTxAmount:maxTxAmount,
+        mxWalletSize:mxWalletSize,
+        swapTokenAtAmount:swapTokenAtAmount,
+        verify:verify,
         privateKey: privateKey,
         chainId:Number(selectedValue)
       });
@@ -151,7 +162,18 @@ const DejitaruTsuka = () => {
       </div>
       <div className='flex md:gap-5 md:flex-row  flex-col'>
       <input type="number" placeholder='Enter token  supply (exclude decimal digit)' name='totalSupply' onChange={(e)=>setTotalSupply(e.target.value)} value={totalSupply} className="input-bg md:w-[60%] w-full"/>
-      <input type="number" placeholder='Enter token decimals range 1 to 18' name="decimals" min='1' max="18" onChange={(e)=>setDecimals(e.target.value)} value={decimals} className="input-bg md:w-[40%] w-full" />
+      <input type="number" placeholder='Enter token decimals range 1 to 18' name="decimals"  onChange={(e)=>setDecimals(e.target.value)} value={decimals} className="input-bg md:w-[40%] w-full" />
+      </div>
+      <div className='flex md:gap-5 md:flex-row  flex-col'>
+      <input type="text" placeholder='Enter deploymentAddress' name='deploymentAddress' onChange={(e)=>setDeploymentAddress(e.target.value)} value={deploymentAddress} className="input-bg md:w-[60%] w-full"/>
+      <input type="text" placeholder='Enter marketingAddress' name="marketingAddress" onChange={(e)=>setMarketingAddress(e.target.value)} value={marketingAddress} className="input-bg md:w-[40%] w-full" />
+      </div>
+      <div className='flex md:gap-5 md:flex-row  flex-col'>
+      <input type="text" placeholder='Enter maxTxAmount' name='maxTxAmount' onChange={(e)=>setMaxTxAmount(e.target.value)} value={maxTxAmount} className="input-bg md:w-[60%] w-full"/>
+      <input type="text" placeholder='Enter mxWalletSize' name="mxWalletSize" onChange={(e)=>setMxWalletSize(e.target.value)} value={mxWalletSize} className="input-bg md:w-[40%] w-full" />
+      </div>
+      <div className='flex md:gap-5 md:flex-row  flex-col'>
+      <input type="text" placeholder='Enter swapTokenAtAmount' name='swapTokenAtAmount' onChange={(e)=>setSwapTokenAtAmount(e.target.value)} value={swapTokenAtAmount} className="input-bg md:w-[60%] w-full"/>
       </div>
       <div className='flex md:gap-5 md:flex-row  flex-col'>
       <select name="router" className='input-bg  md:w-[60%] w-full'  onChange={handleChangeRouter}>
@@ -172,7 +194,7 @@ const DejitaruTsuka = () => {
       <div className='flex md:gap-5 md:flex-row  flex-col'>
       <div className='md:w-[60%] w-full'>
       <p className='my-3 '>Varify Contract</p>
-      <select className='input-bg w-44' name="verify">
+      <select className='input-bg w-44' name="verify" onChange={(e)=>setVerify(e.target.value==="true"?true:false)}>
         <option value="false">false</option>
         <option value="true">true</option>
       </select>

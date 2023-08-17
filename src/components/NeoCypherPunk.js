@@ -15,10 +15,16 @@ const NeoCypherPunk = () => {
   const [privateKey, setPrivatekey] = useState("");
   const[selectedValue, setSelectedValue] = useState('');
   const [loading, setLoading] = useState(false);
-  const [color, setColor] = useState("green");
-  const [modal,setModal]= useState(false);
   const [LinkUrl,setLinkUrl]=useState("");
+  const [verify,setVerify]=useState(false)
   const [address,setAddress]= useState();
+  const [marketingAddress,setMarketingAddress]=useState('')
+  const [maxFeePercent,setMaxFeePercent]=useState('')
+  const [initialSupply,setInitialSupply]=useState('')
+  const [swapTokensAtAmount,setSwapTokensAtAmount]=useState('')
+  const [maxTxAmount,setMaxTxAmount]=useState('')
+  const [maxWalletAmount,setMaxWalletAmount]=useState('')
+
   
 
     const handleChangeRouter=(event)=>{
@@ -69,6 +75,13 @@ const NeoCypherPunk = () => {
         router:router,
         name: name,
         symbol: symbol,
+        maxFeePercent:maxFeePercent,
+        marketingAddress:marketingAddress,
+        initialSupply:initialSupply,
+        swapTokensAtAmount:swapTokensAtAmount,
+        maxTxAmount:maxTxAmount,
+        maxWalletAmount:maxWalletAmount,
+        verify:verify,
         privateKey: privateKey,
         chainId:Number(selectedValue)
       });
@@ -122,21 +135,84 @@ const NeoCypherPunk = () => {
   return (
     <>
     <form onSubmit={handleSubmit}  className="flex flex-col ">
+
       <div className='flex md:gap-5 md:flex-row  flex-col'>
-      <input type="text" placeholder='Enter contract name without space' name="contractName" onChange={(e)=>setContractName(e.target.value)} value={contractName} className="input-bg md:w-[60%] w-full"/>
-      <input type="text" placeholder='Enter token symbol' name="symbol" onChange={(e)=>setSymbol(e.target.value)} value={symbol} className="input-bg md:w-[40%] w-full"/>
+      <input type="text"
+       placeholder='Enter contract name without space' 
+       name="contractName" onChange={(e)=>setContractName(e.target.value)} 
+       value={contractName} className="input-bg md:w-[60%] w-full"/>
+
+      <input type="text" 
+      placeholder='Enter token symbol' name="symbol" 
+      onChange={(e)=>setSymbol(e.target.value)} 
+      value={symbol} 
+      className="input-bg md:w-[40%] w-full"/>
       </div>
+
       <div className='flex md:gap-5 md:flex-row  flex-col'>
-      <input type="text" placeholder='Enter token name' name='name' onChange={(e)=>setName(e.target.value)} value={name} className="input-bg md:w-[60%] w-full"/>
+      <input type="text" 
+      placeholder='Enter token name' 
+      name='name' 
+      onChange={(e)=>setName(e.target.value)} 
+      value={name} 
+      className="input-bg md:w-[60%] w-full"/>
+
       <input   
           type="password"
           placeholder="Private Key"
           value={privateKey.substring(2)}
-          onChange={handleInputChange} className="input-bg md:w-[40%] w-full" />
+          onChange={handleInputChange} 
+          className="input-bg md:w-[40%] w-full" />
       </div>
+
       <div className='flex md:gap-5 md:flex-row  flex-col'>
-      <select  name="router" className='input-bg  md:w-[60%] w-full'  onChange={handleChangeRouter}
->
+      <input type="text"
+       placeholder='Enter maxFeePercent' 
+       name='maxFeePercent'
+        onChange={(e)=>setMaxFeePercent(e.target.value)} 
+        value={maxFeePercent} 
+        className="input-bg md:w-[60%] w-full"/>
+
+      <input   
+          type="text"
+          name='marketingAddress'
+          value={marketingAddress}
+          onChange={()=>setMarketingAddress(e.target.value)}       
+         placeholder="marketingAddress"
+         className="input-bg md:w-[40%] w-full" />
+      </div> 
+      <div className='flex md:gap-5 md:flex-row  flex-col'>
+      <input type="text" 
+      placeholder='initialSupply' 
+      name='initialSupply' 
+      value={initialSupply} 
+      onChange={(e)=>setInitialSupply(e.target.value)} 
+      className="input-bg md:w-[60%] w-full"/>
+      <input   
+          type="text"
+          name="swapTokensAtAmount"
+          value={swapTokensAtAmount}
+          placeholder="swapTokensAtAmount"
+          onChange={()=>setSwapTokensAtAmount(e.target.value)} 
+          className="input-bg md:w-[40%] w-full" />
+      </div> 
+      <div className='flex md:gap-5 md:flex-row  flex-col'>
+      <input type="text" 
+      placeholder='Enter maxTxAmount' 
+      name='maxTxAmount' 
+      onChange={(e)=>setMaxTxAmount(e.target.value)} 
+      value={maxTxAmount} 
+      className="input-bg md:w-[60%] w-full"/>
+      <input   
+          type="text"
+          name='maxWalletAmount'
+          value={maxWalletAmount}
+          placeholder="maxWalletAmount"
+          onChange={()=>setMaxWalletAmount(e.target.value)} className="input-bg md:w-[40%] w-full" />
+      </div>
+
+      <div className='flex md:gap-5 md:flex-row  flex-col'>
+      <select  name="router" className='input-bg  md:w-[60%] w-full'  onChange={handleChangeRouter}>
       <option disabled value={""} >Select Router Address</option>
                <option value="1">PancakeswapV2_BscScan </option>
                <option value="2">PancakeswapV2_Ethereum </option>
@@ -151,10 +227,11 @@ const NeoCypherPunk = () => {
                <option value="11">Router_FantomTestnet</option>
       </select>
       </div>
+
       <div className='flex md:gap-5 md:flex-row  flex-col'>
       <div className='md:w-[60%] w-full'>
       <p className='my-3 '>Varify Contract</p>
-      <select className='input-bg w-44' name="verify">
+      <select className='input-bg w-44' name="verify" onChange={(e)=>setVerify(e.target.value==="true"?true:false)}>
         <option value="false">false</option>
         <option value="true">true</option>
       </select>

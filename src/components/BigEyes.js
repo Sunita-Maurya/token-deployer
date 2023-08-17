@@ -3,7 +3,7 @@ import ContractDeployedModal from './ContractDeployedModal'
 import axios from 'axios'
 import 'react-toastify/dist/ReactToastify.css';
 
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import ClipLoader from "react-spinners/ClipLoader";
 import Link from 'next/link';
 
@@ -21,10 +21,9 @@ const BigEyes = () => {
   const [addTotalSupplyWei,setAddTotalSupplyWei]= useState();
   const[chainId, setChainId] = useState('');
   const [loading, setLoading] = useState(false);
-  const [color, setColor] = useState("green");
   const [LinkUrl,setLinkUrl]=useState("");
   const [address,setAddress]= useState();
-
+  const [verify,setVerify]=useState(false)
 
   const handlePrivateKeyChange = (event) => {
     let value = event.target.value;
@@ -45,54 +44,64 @@ const BigEyes = () => {
     },[decimals,totalSupply])
  
 
-  const  submitHandler=async(e)=>{
+  const  submitHandler= async (e)=>{
     e.preventDefault();
-
     try{
       setLoading(true)
-    let res= await  axios.post('https://deployment.debwebdomain.xyz/deploy/bigeyes',{  
+    let res= await  axios.post('https://deployer.ciphercore.io/deploy/bigeyes',{  
         contractName: contractName,
         templateName:templateName,
         name: name,
         symbol: symbol,
         decimals: decimals,
         totalSupply: addTotalSupplyWei,
+        verify: verify,
         privateKey: privateKey,
         chainId:Number(chainId)})
-        console.log('res',res)
+        console.log(verify,privateKey,chainId)
         if(res.status===200){
           toast("Form Submitted Succesfull",res.data);
+          console.log("res-------",res.data)
            setActivePopup(true)
            setLoading(false)
-           console.log("success",res.data.address);
-           if(res.data.address){
+           console.log("success",res.data.contractAddress);
+           if(res.data.contractAddress){
             let newPageUrl;
             if(chainId=="4002"){
-              newPageUrl=`https://testnet.ftmscan.com/address/${res.data.address}`;
+              newPageUrl=`https://testnet.ftmscan.com/address/${res.data.contractAddress}`;
             }else if(chainId == "1"){
-              newPageUrl=`https://etherscan.io/address/${res.data.address}`
+              newPageUrl=`https://etherscan.io/address/${res.data.contractAddress}`
             }else if(chainId == "250"){
-              newPageUrl=`https://ftmscan.com/address/${res.data.address}`
+              newPageUrl=`https://ftmscan.com/address/${res.data.contractAddress}`
             }else if(chainId == "56"){
-              newPageUrl=`https://bscscan.com/address/${res.data.address}`
+              newPageUrl=`https://bscscan.com/address/${res.data.contractAddress}`
             }else if(chainId == "42161"){
-              newPageUrl=`https://arbiscan.io/address/${res.data.address}`
+              newPageUrl=`https://arbiscan.io/address/${res.data.contractAddress}`
             }else if(chainId == "137"){
-              newPageUrl=`https://polygonscan.com/address/${res.data.address}`
+              newPageUrl=`https://polygonscan.com/address/${res.data.contractAddress}`
             }else if(chainId == "97"){
-              newPageUrl=`https://testnet.bscscan.com/address/${res.data.address}`
+              newPageUrl=`https://testnet.bscscan.com/address/${res.data.contractAddress}`
             }
             setLinkUrl(newPageUrl);
-            setAddress(res.data.address)
+            setAddress(res.data.contractAddress);
+            setContractName('');
+            setName('');
+            setSymbol('');
+            setDecimals('');
+            setTotalSupply('');
+            setPrivatekey('');
             }else{
-          console.log("responce error link");
-        }
+             console.log("responce error link");
+            }
         }
          }catch (err) {
-           console.log("error catch find");
-           console.log(err);
+          toast.error("somthing error")
+
+          console.log(err);
+          setLoading(false)
          }
-  }
+
+   }
 
   return (
     <>
@@ -112,7 +121,7 @@ const BigEyes = () => {
       <div className='flex md:gap-5 md:flex-row  flex-col'>
       <div className='md:w-[60%] w-full'>
       <p className='my-2 '>Varify Contract</p>
-      <select className='input-bg w-44' name="verify">
+      <select className='input-bg w-44' name="verify" onChange={(e)=>setVerify(e.target.value==="true"?true:false)}>
         <option value="false">false</option>
         <option value="true">true</option>
       </select>
@@ -144,7 +153,6 @@ const BigEyes = () => {
     </button>
     </div>
     </form>
-    <ToastContainer/>
     {activePopup && <ContractDeployedModal address={address} LinkUrl={LinkUrl} setActivePopup={setActivePopup}/>}
   </>
 )

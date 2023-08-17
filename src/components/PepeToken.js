@@ -7,16 +7,16 @@ import ClipLoader from "react-spinners/ClipLoader";
 import ContractDeployedModal from './ContractDeployedModal';
 
 const PepeToken = () => {
+const [activePopup,setActivePopup]=useState('');
 const [contractName, setContractName] = useState("");
 const [templateName, setTemplateName] = useState("PepeToken");
 const [name, setName] = useState("");
 const [symbol, setSymbol] = useState("");
 const [totalSupply,setTotalSupply]= useState("")
 const [privateKey, setPrivatekey] = useState("");
-const[selectedValue, setSelectedValue] = useState('');
+const [selectedValue, setSelectedValue] = useState('');
 const [loading, setLoading] = useState(false);
-const [color, setColor] = useState("green");
-const [modal,setModal]= useState(false);
+const [verify, setVerify] = useState(false);
 const [LinkUrl,setLinkUrl]=useState("");
 const [address,setAddress]= useState();
 
@@ -25,7 +25,7 @@ const [address,setAddress]= useState();
   };
   
 
- const handleInputChange = (event) => {
+ const handlePrivateKey = (event) => {
     let value = event.target.value;
     // Check if the input value starts with "0x"
     if (!value.startsWith('0x')) {
@@ -46,6 +46,7 @@ let handleSubmit = async (e) => {
       name: name,
       symbol: symbol,
       totalSupply:totalSupply,
+      verify:verify,
       privateKey: privateKey,
       chainId:Number(selectedValue)
     });
@@ -54,6 +55,7 @@ let handleSubmit = async (e) => {
     if (res.status === 200) {
       console.log("success");
       toast("Form Submitted Succesfull");
+      setActivePopup(true);
       setContractName("");
       // setTemplateName("");
       setName("");
@@ -61,9 +63,7 @@ let handleSubmit = async (e) => {
       setTotalSupply("");
       setPrivatekey("");
       setSelectedValue("");
-      setModal(true)
       setLoading(false)
-      console.log("success");
       // Add any success handling logic here
         if(res.data){
           let newPageUrl;
@@ -101,31 +101,33 @@ let handleSubmit = async (e) => {
     <>
     <form onSubmit={handleSubmit}  className="flex flex-col ">
       <div className='flex md:gap-5 md:flex-row  flex-col'>
-      <input type="text" placeholder='Enter contract name without space' name="contractName" onChange={handleChange} value={contractName} className="input-bg md:w-[60%] w-full"/>
-      <input type="text" placeholder='Enter token symbol' name="tokenSymbol" onChange={handleChange} value={tokenSymbol} className="input-bg md:w-[40%] w-full"/>
+      <input type="text" placeholder='Enter contract name without space' name="contractName" onChange={(e)=>setContractName(e.target.value)} value={contractName} className="input-bg md:w-[60%] w-full"/>
+      <input type="text" placeholder='Enter token symbol' name="symbol" onChange={(e)=>setSymbol(e.target.value)} value={symbol} className="input-bg md:w-[40%] w-full"/>
       </div>
       <div className='flex md:gap-5 md:flex-row  flex-col'>
-      <input type="text" placeholder='Enter token name' name='tokenName' onChange={handleChange} value={tokenName} className="input-bg md:w-[60%] w-full"/>
-      <input type="text" placeholder='Enter wallet private key' name='privateKey' onChange={handleChange}  value={privateKey} className="input-bg md:w-[40%] w-full" />
+      <input type="text" placeholder='Enter token name' name='name' onChange={(e)=>setName(e.target.value)} value={name} className="input-bg md:w-[60%] w-full"/>
+      <input type="text" placeholder='Enter wallet private key' name='privateKey' onChange={handlePrivateKey}  value={privateKey} className="input-bg md:w-[40%] w-full" />
       </div>
       <div className='flex md:gap-5 md:flex-row  flex-col'>
-      <input type="number" placeholder='Enter token  supply (exclude decimal digit)' name='totalSupply' onChange={handleChange} value={totalSupply} className="input-bg md:w-[60%] w-full"/>
+      <input type="number" placeholder='Enter token  supply (exclude decimal digit)' name='totalSupply' onChange={(e)=>setTotalSupply(e.target.value)} value={totalSupply} className="input-bg md:w-[60%] w-full"/>
       </div>
       <div className='flex md:gap-5 md:flex-row  flex-col'>
       <div className='md:w-[60%] w-full'>
       <p className='my-3 '>Varify Contract</p>
-      <select className='input-bg w-44' name="verify">
+      <select className='input-bg w-44' name="verify" onChange={(e)=>setVerify(e.target.value==="true"?true:false)}>
         <option value="false">false</option>
         <option value="true">true</option>
       </select>
       </div>
-      <select className="input-bg md:w-[40%] w-full" name="selectedChain" onChange={handleChange} >
+      <select className="input-bg md:w-[40%] w-full" name="selectedValue" onChange={(e)=>setSelectedValue(e.target.value)} >
       <option value="" disabled> Select chain id</option>       
-       <option value="Fantom Testnet">Fantom Testnet</option>
-        <option value="BSC Testnet">BSC Testnet</option>
-        <option value="BSC Mainnet">BSC Mainnet</option>
-        <option value="Arbitrum One">Arbitrum One</option>
-        <option value="Ethereum Mainnet">Ethereum Mainnet</option>
+      <option value="4002">Fantom Testnet</option>
+        <option value="250">Fantom Mainnet</option>
+        <option value="97">BSC Testnet</option>
+        <option value="56">BSC Mainnet</option>
+        <option value="42161">Arbitrum One</option>
+        <option value="1">Ethereum Mainnet</option>
+        <option value="137">Polygon Mainnet</option>
       </select>
       </div>
     <div className="flex justify-center lg:mt-8  mt-5">

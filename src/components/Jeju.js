@@ -19,6 +19,15 @@ const[selectedValue, setSelectedValue] = useState('');
 const [loading, setLoading] = useState(false);
 const [LinkUrl,setLinkUrl]=useState("");
 const [address,setAddress]= useState();
+const [buyOperationsFee,setBuyOperationsFee]=useState('');
+const [buyLiquidityFee,setBuyLiquidityFee]=useState('');
+const [sellOperationsFee,setSellOperationsFee]=useState('');
+const [sellLiquidityFee,setSellLiquidityFee]=useState('');
+const [operationsAddress,setOperationsAddress]=useState('');
+const [supplyAddress1,setSupplyAddress1]=useState('')
+const [supplyAddress2,setSupplyAddress2]=useState('')
+const [supplyAddress3,setSupplyAddress3]=useState('')
+const [verify,setVerify]=useState(false)
 
   const handleChangeChainId = (event) => {
     setSelectedValue(event.target.value);
@@ -71,6 +80,15 @@ let handleSubmit = async (e) => {
       router:router,
       name: name,
       symbol: symbol,
+      buyOperationsFee:buyOperationsFee,
+      buyLiquidityFee:buyLiquidityFee,
+      sellOperationsFee:sellOperationsFee,
+      sellLiquidityFee:sellLiquidityFee,
+      operationsAddress:operationsAddress,
+      supplyAddress1:supplyAddress1,
+      supplyAddress2:supplyAddress2,
+      supplyAddress3:supplyAddress3,
+      verify:verify,
       privateKey: privateKey,
       chainId:Number(selectedValue)
     });
@@ -87,6 +105,15 @@ let handleSubmit = async (e) => {
       setSymbol("");
       setPrivatekey("");
       setSelectedValue("");
+      setBuyOperationsFee('');
+      setBuyLiquidityFee('');
+      setSellOperationsFee('');
+      setSellLiquidityFee('');
+      setOperationsAddress('');
+      setSupplyAddress1('')
+      setSupplyAddress2('')
+      setSupplyAddress3('')
+
       setLoading(false)
 
        if(res.data){
@@ -135,6 +162,22 @@ let handleSubmit = async (e) => {
       <input type="text" placeholder='Enter wallet private key' name='privateKey' onChange={handleInputChange}  value={privateKey} className="input-bg md:w-[40%] w-full" />
       </div>
       <div className='flex md:gap-5 md:flex-row  flex-col'>
+      <input type="text" placeholder='Enter buyOperationsFee' name='buyOperationsFee' onChange={(e)=>setBuyOperationsFee(e.target.value)} value={buyOperationsFee} className="input-bg md:w-[60%] w-full"/>
+      <input type="text" placeholder='Enter buyLiquidityFee' name='buyLiquidityFee' onChange={()=>setBuyLiquidityFee(e.target.value)}  value={buyLiquidityFee} className="input-bg md:w-[40%] w-full" />
+      </div> 
+      <div className='flex md:gap-5 md:flex-row  flex-col'>
+      <input type="text" placeholder='Enter sellOperationsFee' name='sellOperationsFee' onChange={(e)=>setSellOperationsFee(e.target.value)} value={sellOperationsFee} className="input-bg md:w-[60%] w-full"/>
+      <input type="text" placeholder='Enter sellLiquidityFee' name='sellLiquidityFee' onChange={()=>setSellLiquidityFee(e.target.value)}  value={sellLiquidityFee} className="input-bg md:w-[40%] w-full" />
+      </div> 
+      <div className='flex md:gap-5 md:flex-row  flex-col'>
+      <input type="text" placeholder='Enter operationsAddress' name='operationsAddress' onChange={(e)=>setOperationsAddress(e.target.value)} value={operationsAddress} className="input-bg md:w-[60%] w-full"/>
+      <input type="text" placeholder='Enter supplyAddress1' name='supplyAddress1' onChange={()=>setSupplyAddress1(e.target.value)}  value={supplyAddress1} className="input-bg md:w-[40%] w-full" />
+      </div> 
+      <div className='flex md:gap-5 md:flex-row  flex-col'>
+      <input type="text" placeholder='Enter supplyAddress2' name='supplyAddress2' onChange={()=>setSupplyAddress2(e.target.value)}  value={supplyAddress2} className="input-bg md:w-[40%] w-full" />
+      <input type="text" placeholder='Enter supplyAddress3' name='supplyAddress3' onChange={()=>setSupplyAddres31(e.target.value)}  value={supplyAddress3} className="input-bg md:w-[40%] w-full" />
+      </div>
+      <div className='flex md:gap-5 md:flex-row  flex-col'>
       <select name="router" className='input-bg  md:w-[60%] w-full'  onChange={handleChangeRouter}>
         {/* <option disabled selected value="" >Select Router Address</option> */}
          <option value="1">PancakeswapV2_BscScan </option>
@@ -153,7 +196,7 @@ let handleSubmit = async (e) => {
       <div className='flex md:gap-5 md:flex-row  flex-col'>
       <div className='md:w-[60%] w-full'>
       <p className='my-3 '>Varify Contract</p>
-      <select className='input-bg w-44' name="verify">
+      <select className='input-bg w-44' name="verify" onChange={(e)=>setVerify(e.target.value==="true"?true:false)}>
         <option value="false">false</option>
         <option value="true">true</option>
       </select>
