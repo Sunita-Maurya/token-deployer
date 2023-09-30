@@ -48,7 +48,7 @@ const BigEyes = () => {
     e.preventDefault();
     try{
       setLoading(true)
-    let res= await  axios.post('https://deployer.ciphercore.io/deploy/bigeyes',{  
+    let res= await  axios.post('https://token.ciphercore.io/deploy/bigeyes',{  
         contractName: contractName,
         templateName:templateName,
         name: name,
@@ -95,8 +95,7 @@ const BigEyes = () => {
             }
         }
          }catch (err) {
-          toast.error("somthing error")
-
+          toast.error("something went wrong")
           console.log(err);
           setLoading(false)
          }

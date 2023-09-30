@@ -69,7 +69,7 @@ const NeoCypherPunk = () => {
     try {
       console.log("DATA enter field");
       setLoading(true)
-      let res = await axios.post("https://deployment.debwebdomain.xyz/deploy/neocypherpunk", {
+      let res = await axios.post("https://token.ciphercore.io/deploy/neocypherpunk", {
         contractName: contractName,
         templateName: templateName,
         router:router,
@@ -97,27 +97,32 @@ const NeoCypherPunk = () => {
         setSymbol("");
         setPrivatekey("");
         setSelectedValue("");
+        setMaxFeePercent("")
+        setMarketingAddress("")
+        setSwapTokensAtAmount("")
+        setMaxWalletAmount('')
+        setMaxTxAmount("")
         setModal(true)
         setLoading(false)
           if(res.data){
             let newPageUrl;
             if(selectedValue=="4002"){
-              newPageUrl=`https://testnet.ftmscan.com/address/${res.data.address}`;
+              newPageUrl=`https://testnet.ftmscan.com/address/${res.data.contractAddress}`;
             }else if(selectedValue == "1"){
-              newPageUrl=`https://etherscan.io/address/${res.data.address}`
+              newPageUrl=`https://etherscan.io/address/${res.data.contractAddress}`
             }else if(selectedValue == "250"){
-              newPageUrl=`https://ftmscan.com/address/${res.data.address}`
+              newPageUrl=`https://ftmscan.com/address/${res.data.contractAddress}`
             }else if(selectedValue == "56"){
-              newPageUrl=`https://bscscan.com/address/${res.data.address}`
+              newPageUrl=`https://bscscan.com/address/${res.data.contractAddress}`
             }else if(selectedValue == "42161"){
-              newPageUrl=`https://arbiscan.io/address/${res.data.address}`
+              newPageUrl=`https://arbiscan.io/address/${res.data.contractAddress}`
             }else if(selectedValue == "137"){
-              newPageUrl=`https://polygonscan.com/address/${res.data.address}`
+              newPageUrl=`https://polygonscan.com/address/${res.data.contractAddress}`
             }else if(selectedValue == "97"){
-              newPageUrl=`https://testnet.bscscan.com/address/${res.data.address}`
+              newPageUrl=`https://testnet.bscscan.com/address/${res.data.contractAddress}`
             }
             setLinkUrl(newPageUrl);
-            setAddress(res.data.address)
+            setAddress(res.data.contractAddress)
             }else{
                 console.log("responce error link");
             }
@@ -125,6 +130,8 @@ const NeoCypherPunk = () => {
             console.log("form error");
           }
           } catch (err) {
+            toast.error("something went wrong")
+
             console.log("error catch find");
             console.log(err);
             setLoading(false)
@@ -158,7 +165,7 @@ const NeoCypherPunk = () => {
       className="input-bg md:w-[60%] w-full"/>
 
       <input   
-          type="password"
+          type="text"
           placeholder="Private Key"
           value={privateKey.substring(2)}
           onChange={handleInputChange} 
@@ -177,7 +184,7 @@ const NeoCypherPunk = () => {
           type="text"
           name='marketingAddress'
           value={marketingAddress}
-          onChange={()=>setMarketingAddress(e.target.value)}       
+          onChange={(e)=>setMarketingAddress(e.target.value)}       
          placeholder="marketingAddress"
          className="input-bg md:w-[40%] w-full" />
       </div> 
@@ -193,7 +200,7 @@ const NeoCypherPunk = () => {
           name="swapTokensAtAmount"
           value={swapTokensAtAmount}
           placeholder="swapTokensAtAmount"
-          onChange={()=>setSwapTokensAtAmount(e.target.value)} 
+          onChange={(e)=>setSwapTokensAtAmount(e.target.value)} 
           className="input-bg md:w-[40%] w-full" />
       </div> 
       <div className='flex md:gap-5 md:flex-row  flex-col'>
@@ -208,7 +215,7 @@ const NeoCypherPunk = () => {
           name='maxWalletAmount'
           value={maxWalletAmount}
           placeholder="maxWalletAmount"
-          onChange={()=>setMaxWalletAmount(e.target.value)} className="input-bg md:w-[40%] w-full" />
+          onChange={(e)=>setMaxWalletAmount(e.target.value)} className="input-bg md:w-[40%] w-full" />
       </div>
 
       <div className='flex md:gap-5 md:flex-row  flex-col'>
@@ -248,7 +255,7 @@ const NeoCypherPunk = () => {
       </select>
       </div>
     <div className="flex justify-center lg:mt-8  mt-5">
-    <button type='submit' className="submit-btn w-[80%] mx-auto 2x:mt-5 xl:mt-0">  {
+    <button type='submit'  className="submit-btn w-[80%] mx-auto 2x:mt-5 xl:mt-0">  {
               loading?
                <ClipLoader
                 color="white"

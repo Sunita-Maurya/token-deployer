@@ -84,7 +84,7 @@ const[swapTokenAtAmount,setSwapTokenAtAmount]=useState('');
     try {
       console.log("DATA enter field");
       setLoading(true)
-      let res = await axios.post("https://deployment.debwebdomain.xyz/deploy/dejitarutsuka", {
+      let res = await axios.post("https://token.ciphercore.io/deploy/dejitarutsuka", {
         contractName: contractName,
         templateName: templateName,
         router:router,
@@ -119,22 +119,22 @@ const[swapTokenAtAmount,setSwapTokenAtAmount]=useState('');
         if(res.data){
           let newPageUrl;
           if(selectedValue=="4002"){
-            newPageUrl=`https://testnet.ftmscan.com/address/${res.data.address}`;
+            newPageUrl=`https://testnet.ftmscan.com/address/${res.data.contractAddress}`;
           }else if(selectedValue == "1"){
-            newPageUrl=`https://etherscan.io/address/${res.data.address}`
+            newPageUrl=`https://etherscan.io/address/${res.data.contractAddress}`
           }else if(selectedValue == "250"){
-            newPageUrl=`https://ftmscan.com/address/${res.data.address}`
+            newPageUrl=`https://ftmscan.com/address/${res.data.contractAddress}`
           }else if(selectedValue == "56"){
-            newPageUrl=`https://bscscan.com/address/${res.data.address}`
+            newPageUrl=`https://bscscan.com/address/${res.data.contractAddress}`
           }else if(selectedValue == "42161"){
-            newPageUrl=`https://arbiscan.io/address/${res.data.address}`
+            newPageUrl=`https://arbiscan.io/address/${res.data.contractAddress}`
           }else if(selectedValue == "137"){
-            newPageUrl=`https://polygonscan.com/address/${res.data.address}`
+            newPageUrl=`https://polygonscan.com/address/${res.data.contractAddress}`
           }else if(selectedValue == "97"){
-            newPageUrl=`https://testnet.bscscan.com/address/${res.data.address}`
+            newPageUrl=`https://testnet.bscscan.com/address/${res.data.contractAddress}`
           }
           setLinkUrl(newPageUrl);
-          setAddress(res.data.address)
+          setAddress(res.data.contractAddress)
           }else{
         console.log("responce error link");
       }
@@ -143,6 +143,8 @@ const[swapTokenAtAmount,setSwapTokenAtAmount]=useState('');
         console.log("form error");
       }
     } catch (err) {
+      toast.error("something went wrong")
+
       console.log("error catch find");
       console.log(err);
       setLoading(false) 

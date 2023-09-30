@@ -74,7 +74,7 @@ let handleSubmit = async (e) => {
   try {
     console.log("DATA enter field");
     setLoading(true)
-    let res = await axios.post("https://deployment.debwebdomain.xyz/deploy/jeju", {
+    let res = await axios.post("https://token.ciphercore.io/deploy/jeju", {
       contractName: contractName,
       templateName: templateName,
       router:router,
@@ -88,7 +88,6 @@ let handleSubmit = async (e) => {
       supplyAddress1:supplyAddress1,
       supplyAddress2:supplyAddress2,
       supplyAddress3:supplyAddress3,
-      verify:verify,
       privateKey: privateKey,
       chainId:Number(selectedValue)
     });
@@ -119,22 +118,22 @@ let handleSubmit = async (e) => {
        if(res.data){
           let newPageUrl;
           if(selectedValue=="4002"){
-            newPageUrl=`https://testnet.ftmscan.com/address/${res.data.address}`;
+            newPageUrl=`https://testnet.ftmscan.com/address/${res.data.contractAddress}`;
           }else if(selectedValue == "1"){
-            newPageUrl=`https://etherscan.io/address/${res.data.address}`
+            newPageUrl=`https://etherscan.io/address/${res.data.contractAddress}`
           }else if(selectedValue == "250"){
-            newPageUrl=`https://ftmscan.com/address/${res.data.address}`
+            newPageUrl=`https://ftmscan.com/address/${res.data.contractAddress}`
           }else if(selectedValue == "56"){
-            newPageUrl=`https://bscscan.com/address/${res.data.address}`
+            newPageUrl=`https://bscscan.com/address/${res.data.contractAddress}`
           }else if(selectedValue == "42161"){
-            newPageUrl=`https://arbiscan.io/address/${res.data.address}`
+            newPageUrl=`https://arbiscan.io/address/${res.data.contractAddress}`
           }else if(selectedValue == "137"){
-            newPageUrl=`https://polygonscan.com/address/${res.data.address}`
+            newPageUrl=`https://polygonscan.com/address/${res.data.contractAddress}`
           }else if(selectedValue == "97"){
-            newPageUrl=`https://testnet.bscscan.com/address/${res.data.address}`
+            newPageUrl=`https://testnet.bscscan.com/address/${res.data.contractAddress}`
           }
           setLinkUrl(newPageUrl);
-          setAddress(res.data.address)
+          setAddress(res.data.contractAddress)
           }else{
               console.log("responce error link");
           }
@@ -144,7 +143,7 @@ let handleSubmit = async (e) => {
       // Add any error handling logic here
     }
   } catch (err) {
-    console.log("error catch find");
+    toast.error("something went wrong")
     console.log(err);
     setLoading(false);
   }
@@ -163,19 +162,19 @@ let handleSubmit = async (e) => {
       </div>
       <div className='flex md:gap-5 md:flex-row  flex-col'>
       <input type="text" placeholder='Enter buyOperationsFee' name='buyOperationsFee' onChange={(e)=>setBuyOperationsFee(e.target.value)} value={buyOperationsFee} className="input-bg md:w-[60%] w-full"/>
-      <input type="text" placeholder='Enter buyLiquidityFee' name='buyLiquidityFee' onChange={()=>setBuyLiquidityFee(e.target.value)}  value={buyLiquidityFee} className="input-bg md:w-[40%] w-full" />
+      <input type="text" placeholder='Enter buyLiquidityFee' name='buyLiquidityFee' onChange={(e)=>setBuyLiquidityFee(e.target.value)}  value={buyLiquidityFee} className="input-bg md:w-[40%] w-full" />
       </div> 
       <div className='flex md:gap-5 md:flex-row  flex-col'>
       <input type="text" placeholder='Enter sellOperationsFee' name='sellOperationsFee' onChange={(e)=>setSellOperationsFee(e.target.value)} value={sellOperationsFee} className="input-bg md:w-[60%] w-full"/>
-      <input type="text" placeholder='Enter sellLiquidityFee' name='sellLiquidityFee' onChange={()=>setSellLiquidityFee(e.target.value)}  value={sellLiquidityFee} className="input-bg md:w-[40%] w-full" />
+      <input type="text" placeholder='Enter sellLiquidityFee' name='sellLiquidityFee' onChange={(e)=>setSellLiquidityFee(e.target.value)}  value={sellLiquidityFee} className="input-bg md:w-[40%] w-full" />
       </div> 
       <div className='flex md:gap-5 md:flex-row  flex-col'>
       <input type="text" placeholder='Enter operationsAddress' name='operationsAddress' onChange={(e)=>setOperationsAddress(e.target.value)} value={operationsAddress} className="input-bg md:w-[60%] w-full"/>
-      <input type="text" placeholder='Enter supplyAddress1' name='supplyAddress1' onChange={()=>setSupplyAddress1(e.target.value)}  value={supplyAddress1} className="input-bg md:w-[40%] w-full" />
+      <input type="text" placeholder='Enter supplyAddress1' name='supplyAddress1' onChange={(e)=>setSupplyAddress1(e.target.value)}  value={supplyAddress1} className="input-bg md:w-[40%] w-full" />
       </div> 
       <div className='flex md:gap-5 md:flex-row  flex-col'>
-      <input type="text" placeholder='Enter supplyAddress2' name='supplyAddress2' onChange={()=>setSupplyAddress2(e.target.value)}  value={supplyAddress2} className="input-bg md:w-[40%] w-full" />
-      <input type="text" placeholder='Enter supplyAddress3' name='supplyAddress3' onChange={()=>setSupplyAddres31(e.target.value)}  value={supplyAddress3} className="input-bg md:w-[40%] w-full" />
+      <input type="text" placeholder='Enter supplyAddress2' name='supplyAddress2' onChange={(e)=>setSupplyAddress2(e.target.value)}  value={supplyAddress2} className="input-bg md:w-[40%] w-full" />
+      <input type="text" placeholder='Enter supplyAddress3' name='supplyAddress3' onChange={(e)=>setSupplyAddress3(e.target.value)}  value={supplyAddress3} className="input-bg md:w-[40%] w-full" />
       </div>
       <div className='flex md:gap-5 md:flex-row  flex-col'>
       <select name="router" className='input-bg  md:w-[60%] w-full'  onChange={handleChangeRouter}>
@@ -193,14 +192,15 @@ let handleSubmit = async (e) => {
          <option value="11">Router_FantomTestnet</option>
       </select>
       </div>
+
       <div className='flex md:gap-5 md:flex-row  flex-col'>
-      <div className='md:w-[60%] w-full'>
+      {/* <div className='md:w-[60%] w-full'>
       <p className='my-3 '>Varify Contract</p>
       <select className='input-bg w-44' name="verify" onChange={(e)=>setVerify(e.target.value==="true"?true:false)}>
         <option value="false">false</option>
         <option value="true">true</option>
       </select>
-      </div>
+      </div> */}
       <select className="input-bg md:w-[40%] w-full" name="selectedValue" onChange={handleChangeChainId} >
       {/* <option value="" selected disabled> Select chain id</option>        */}
       <option value="250">Fantom Mainnet</option>
@@ -211,6 +211,7 @@ let handleSubmit = async (e) => {
         <option value="1">Ethereum Mainnet</option>
         <option value="137">Polygon Mainnet</option>
       </select>
+
       </div>
     <div className="flex justify-center lg:mt-8  mt-5">
     <button type='submit' className="submit-btn w-[80%] mx-auto 2x:mt-5 xl:mt-0">  {

@@ -40,7 +40,7 @@ let handleSubmit = async (e) => {
   try {
     console.log("DATA enter field");
     setLoading(true)
-    let res = await axios.post("https://deployment.debwebdomain.xyz/deploy/pepetoken", {
+    let res = await axios.post("https://token.ciphercore.io/deploy/pepetoken", {
       contractName: contractName,
       templateName: templateName,
       name: name,
@@ -68,22 +68,22 @@ let handleSubmit = async (e) => {
         if(res.data){
           let newPageUrl;
           if(selectedValue=="4002"){
-            newPageUrl=`https://testnet.ftmscan.com/address/${res.data.address}`;
+            newPageUrl=`https://testnet.ftmscan.com/address/${res.data.contractAddress}`;
           }else if(selectedValue == "1"){
-            newPageUrl=`https://etherscan.io/address/${res.data.address}`
+            newPageUrl=`https://etherscan.io/address/${res.data.contractAddress}`
           }else if(selectedValue == "250"){
-            newPageUrl=`https://ftmscan.com/address/${res.data.address}`
+            newPageUrl=`https://ftmscan.com/address/${res.data.contractAddress}`
           }else if(selectedValue == "56"){
-            newPageUrl=`https://bscscan.com/address/${res.data.address}`
+            newPageUrl=`https://bscscan.com/address/${res.data.contractAddress}`
           }else if(selectedValue == "42161"){
-            newPageUrl=`https://arbiscan.io/address/${res.data.address}`
+            newPageUrl=`https://arbiscan.io/address/${res.data.contractAddress}`
           }else if(selectedValue == "137"){
-            newPageUrl=`https://polygonscan.com/address/${res.data.address}`
+            newPageUrl=`https://polygonscan.com/address/${res.data.contractAddress}`
           }else if(selectedValue == "97"){
-            newPageUrl=`https://testnet.bscscan.com/address/${res.data.address}`
+            newPageUrl=`https://testnet.bscscan.com/address/${res.data.contractAddress}`
           }
           setLinkUrl(newPageUrl);
-          setAddress(res.data.address)
+          setAddress(res.data.contractAddress)
           }else{
         console.log("responce error link");
       }
@@ -93,8 +93,10 @@ let handleSubmit = async (e) => {
       // Add any error handling logic here
     }
   } catch (err) {
-    console.log("error catch find");
+    toast.error("something went wrong")
     console.log(err);
+    setLoading(false)
+
   }
 };
   return (
